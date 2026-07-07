@@ -1,280 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VR Home Inventory Management System</title>
 
-    <!-- A-Frame -->
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        VR Home Inventory Management
+    </title>
+
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-    <!-- CSS -->
     <style>
-        /* Reset */
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Full Screen */
+        html,
+        body {
 
-        html,body{
-            width:100%;
-            height:100%;
-            overflow:hidden;
-            font-family:Arial, Helvetica, sans-serif;
-            background:#000;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #000;
+
         }
 
-        /* A-Frame Scene */
+        #title {
 
-        a-scene{
-            width:100%;
-            height:100%;
+            position: absolute;
+
+            top: 20px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            padding: 15px 30px;
+
+            background: rgba(25, 25, 25, .8);
+
+            color: white;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            border-radius: 12px;
+
+            z-index: 999;
+
+            letter-spacing: 1px;
+
+        }
+
+        #guide {
+
+            position: absolute;
+
+            right: 20px;
+
+            top: 20px;
+
+            background: rgba(255, 255, 255, .95);
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            width: 230px;
+
+            font-size: 14px;
+
+            line-height: 24px;
+
+            z-index: 999;
+
         }
     </style>
 
-    <!-- JavaScript -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const infoText = document.querySelector('#infoText');
-            const items = document.querySelectorAll('.inventory');
-
-            items.forEach(item => {
-                // Hover effect (scale up slightly)
-                item.addEventListener('mouseenter', () => {
-                    item.setAttribute('scale', '1.1 1.1 1.1');
-                });
-                item.addEventListener('mouseleave', () => {
-                    item.setAttribute('scale', '1 1 1');
-                });
-                // Click effect (update info panel text)
-                item.addEventListener('click', () => {
-                    const id = item.getAttribute('id');
-                    const name = id.charAt(0).toUpperCase() + id.slice(1);
-                    infoText.setAttribute('value', `Item Selected:\n${name}`);
-                });
-            });
-        });
-    </script>
 </head>
 
 <body>
 
-<a-scene>
+    <div id="title">
 
-    <!-- Sky -->
-    <a-sky color="#CFEFFF"></a-sky>
+        VR HOME INVENTORY SYSTEM
 
-    <!-- Lighting -->
-    <a-light type="ambient" intensity="1"></a-light>
-    <a-light type="directional" position="2 4 3" intensity="0.8"></a-light>
+    </div>
 
-    <!-- Floor -->
-    <a-plane
-        position="0 0 0"
-        rotation="-90 0 0"
-        width="12"
-        height="12"
-        color="#CFCFCF">
-    </a-plane>
+    <div id="guide">
 
-    <!-- Back Wall -->
-    <a-box
-        position="0 2 -6"
-        width="12"
-        height="4"
-        depth="0.2"
-        color="#FFF8DC">
-    </a-box>
+        <b>Controls</b>
 
-    <!-- Left Wall -->
-    <a-box
-        position="-6 2 0"
-        width="0.2"
-        height="4"
-        depth="12"
-        color="#FFF8DC">
-    </a-box>
+        <br>
 
-    <!-- Right Wall -->
-    <a-box
-        position="6 2 0"
-        width="0.2"
-        height="4"
-        depth="12"
-        color="#FFF8DC">
-    </a-box>
+        W A S D → Move
 
-    <!-- Pantry Shelf -->
-    <a-box
-        position="0 1.4 -5.3"
-        width="5"
-        height="0.15"
-        depth="0.8"
-        color="#8B5A2B">
-    </a-box>
+        <br>
 
-    <!-- Left Support -->
-    <a-box
-        position="-2.3 0.7 -5.3"
-        width="0.15"
-        height="1.4"
-        depth="0.8"
-        color="#8B5A2B">
-    </a-box>
+        Mouse → Look Around
 
-    <!-- Right Support -->
-    <a-box
-        position="2.3 0.7 -5.3"
-        width="0.15"
-        height="1.4"
-        depth="0.8"
-        color="#8B5A2B">
-    </a-box>
+        <br>
 
-    <!-- Inventory Items -->
+        Click → Interact
 
-    <!-- Rice -->
-    <a-box
-        id="rice"
-        class="inventory"
-        position="-1.8 1.9 -5.3"
-        width="0.4"
-        height="0.7"
-        depth="0.4"
-        color="#FFD54F">
-    </a-box>
+        <br><br>
 
-    <!-- Sugar -->
-    <a-cylinder
-        id="sugar"
-        class="inventory"
-        position="0 1.85 -5.3"
-        radius="0.2"
-        height="0.6"
-        color="white">
-    </a-cylinder>
+        <b>Items</b>
 
-    <!-- Milk -->
-    <a-box
-        id="milk"
-        class="inventory"
-        position="1.8 1.9 -5.3"
-        width="0.35"
-        height="0.7"
-        depth="0.35"
-        color="#8ED6FF">
-    </a-box>
+        <br>
 
-    <!-- Oil -->
+        🍚 Rice
 
-<a-cylinder
-    id="oil"
-    class="inventory"
-    position="-1 2.9 -5.3"
-    radius="0.15"
-    height="0.6"
-    color="#FFD700">
-</a-cylinder>
+        <br>
 
-<!-- Tea -->
+        🥛 Milk
 
-<a-box
-    id="tea"
-    class="inventory"
-    position="1 2.9 -5.3"
-    width="0.35"
-    height="0.5"
-    depth="0.35"
-    color="#3CB371">
-</a-box>
+        <br>
 
-<!-- Biscuits -->
+        🧂 Sugar
 
-<a-box
-    id="biscuits"
-    class="inventory"
-    position="2.2 2.9 -5.3"
-    width="0.4"
-    height="0.25"
-    depth="0.4"
-    color="#CD853F">
-</a-box>
+        <br>
 
-    <!-- Second Shelf -->
+        🫒 Oil
 
-<a-box
-    position="0 2.4 -5.3"
-    width="5"
-    height="0.15"
-    depth="0.8"
-    color="#8B5A2B">
-</a-box>
+        <br>
 
-<!-- Refrigerator -->
+        ☕
 
-<a-box
-    position="4 1.5 -5"
-    width="1.5"
-    height="3"
-    depth="1.2"
-    color="#E8E8E8">
-</a-box>
+        Tea
 
-<a-text
-    value="Refrigerator"
-    position="4 3.2 -4.3"
-    align="center"
-    color="black">
-</a-text>
+    </div>
 
-<!-- Pantry Cupboard -->
+    <a-scene shadow="type:pcfsoft" background="color:#dcefff">
 
-<a-box
-    position="-4 1.8 -5"
-    width="2"
-    height="3.5"
-    depth="1"
-    color="#A0522D">
-</a-box>
+        <a-assets>
 
-<a-text
-    value="Pantry"
-    position="-4 3.7 -4.3"
-    align="center"
-    color="white">
-</a-text>
+            <img id="wood" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
 
-    <!-- Information Panel -->
-    <a-plane
-        id="infoPanel"
-        position="0 2.3 -2.5"
-        width="3.8"
-        height="1.6"
-        color="#222">
+            <img id="floor" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
 
-        <a-text
-            id="infoText"
-            value="Welcome!\nSelect an item."
-            color="white"
-            align="center"
-            width="4"
-            position="0 0 0.01">
+        </a-assets>
+
+        <!-- Sky -->
+
+        <a-sky color="#D7F3FF">
+
+        </a-sky>
+
+        <!-- Lights -->
+
+        <a-light type="ambient" color="#ffffff" intensity="1.2">
+
+        </a-light>
+
+        <a-light type="directional" position="2 8 5" intensity="1">
+
+        </a-light>
+
+        <!-- Floor -->
+
+        <a-plane rotation="-90 0 0" width="20" height="20" src="#floor" repeat="8 8">
+
+        </a-plane>
+
+        <!-- Ceiling -->
+
+        <a-box position="0 4 0" width="20" height=".15" depth="20" color="#ffffff">
+
+        </a-box>
+
+        <!-- Back Wall -->
+
+        <a-box position="0 2 -10" width="20" height="4" depth=".2" color="#F8F7F2">
+
+        </a-box>
+
+        <!-- Left Wall -->
+
+        <a-box position="-10 2 0" width=".2" height="4" depth="20" color="#F8F7F2">
+
+        </a-box>
+
+        <!-- Right Wall -->
+
+        <a-box position="10 2 0" width=".2" height="4" depth="20" color="#F8F7F2">
+
+        </a-box>
+
+        <!-- Ceiling Lamps -->
+
+        <a-cylinder position="-4 3.85 -2" radius=".25" height=".08" color="#333">
+
+        </a-cylinder>
+
+        <a-sphere position="-4 3.7 -2" radius=".18" color="#FFF8DC" light="type:point; intensity:0.6">
+
+        </a-sphere>
+
+        <a-cylinder position="4 3.85 -2" radius=".25" height=".08" color="#333">
+
+        </a-cylinder>
+
+        <a-sphere position="4 3.7 -2" radius=".18" color="#FFF8DC" light="type:point; intensity:0.6">
+
+        </a-sphere>
+
+        <!-- Windows -->
+
+        <a-plane position="-5 2.3 -9.88" width="2" height="1.4" color="#9DDCFF" material="opacity:.75">
+
+        </a-plane>
+
+        <a-plane position="5 2.3 -9.88" width="2" height="1.4" color="#9DDCFF" material="opacity:.75">
+
+        </a-plane>
+
+        <!-- Kitchen Counter -->
+
+        <a-box position="0 .5 -7" width="7" height="1" depth="1.2" color="#6D4C41">
+
+        </a-box>
+
+        <!-- Marble Counter Top -->
+        <a-box position="0 1.05 -7" width="7.2" height=".12" depth="1.3" color="#EAEAEA">
+        </a-box>
+
+        <!-- Pantry Body -->
+        <a-box position="-7 1.8 -7" width="2.5" height="3.2" depth="1" color="#8D6E63">
+        </a-box>
+
+        <!-- Left Pantry Door -->
+        <a-entity id="leftHinge" position="-8.2 1.8 -6.48">
+
+            <a-box id="leftDoor" position=".6 0 0" width="1.2" height="3" depth=".05" color="#5D4037">
+
+                <a-animation attribute="rotation" begin="click" to="0 -110 0" dur="800">
+                </a-animation>
+
+            </a-box>
+
+        </a-entity>
+
+        <!-- Right Pantry Door -->
+
+        <a-entity id="rightHinge" position="-5.8 1.8 -6.48">
+
+            <a-box id="rightDoor" position="-.6 0 0" width="1.2" height="3" depth=".05" color="#6D4C41">
+
+                <a-animation attribute="rotation" begin="click" to="0 110 0" dur="800">
+                </a-animation>
+
+            </a-box>
+
+        </a-entity>
+
+        <!-- Refrigerator -->
+
+        <a-box position="7 1.5 -7" width="1.8" height="3" depth="1.1" color="#ECEFF1">
+        </a-box>
+
+        <!-- Refrigerator Door -->
+
+        <a-entity id="fridgeHinge" position="6.1 1.5 -6.43">
+
+            <a-box id="fridgeDoor" position=".85 0 0" width="1.7" height="2.9" depth=".05" color="#CFD8DC">
+
+                <a-animation attribute="rotation" begin="click" to="0 -100 0" dur="800">
+                </a-animation>
+
+            </a-box>
+
+        </a-entity>
+
+        <!-- Refrigerator Handle -->
+
+        <a-box position="7.72 1.5 -6.37" width=".05" height="1.5" depth=".05" color="#666">
+        </a-box>
+
+        <!-- Pantry Shelves -->
+
+        <a-box position="0 1.3 -5.8" width="6" height=".08" depth=".6" color="#8B5A2B">
+        </a-box>
+
+        <a-box position="0 2.2 -5.8" width="6" height=".08" depth=".6" color="#8B5A2B">
+        </a-box>
+
+        <a-box position="0 3.1 -5.8" width="6" height=".08" depth=".6" color="#8B5A2B">
+        </a-box>
+
+        <!-- Plant -->
+
+        <a-cylinder position="-3 .4 -6" radius=".18" height=".4" color="#8D6E63">
+        </a-cylinder>
+
+        <a-cone position="-3 .9 -6" radius-bottom=".5" height=".8" color="#4CAF50">
+        </a-cone>
+
+        <!-- Dining Table -->
+
+        <a-cylinder position="0 .6 2" radius="1" height=".08" color="#795548">
+        </a-cylinder>
+
+        <a-cylinder position="0 .25 2" radius=".08" height=".5" color="#5D4037">
+        </a-cylinder>
+
+        <!-- Chair -->
+
+        <a-box position="-1 .45 3" width=".6" height=".9" depth=".6" color="#6D4C41">
+        </a-box>
+
+        <a-box position="1 .45 3" width=".6" height=".9" depth=".6" color="#6D4C41">
+        </a-box>
+
+        <a-box position="-1 .45 1" width=".6" height=".9" depth=".6" color="#6D4C41">
+        </a-box>
+
+        <a-box position="1 .45 1" width=".6" height=".9" depth=".6" color="#6D4C41">
+        </a-box>
+
+        <!-- ========================= -->
+        <!-- INVENTORY ITEMS -->
+        <!-- ========================= -->
+
+        <!-- Bottom Shelf -->
+
+        <a-box id="rice" position="-2.4 1.6 -5.8" width=".35" height=".55" depth=".35" color="#F4D03F"
+            animation="property: scale; startEvents: mouseenter; to:1.15 1.15 1.15; dur:200"
+            animation__2="property: scale; startEvents: mouseleave; to:1 1 1; dur:200">
+        </a-box>
+
+        <a-text value="Rice" position="-2.4 2.05 -5.3" align="center" color="#111" scale=".7 .7 .7">
         </a-text>
 
-    </a-plane>
 
-    <!-- Camera -->
-    <a-entity position="0 1.6 4">
-        <a-camera>
-            <a-cursor color="red"></a-cursor>
-        </a-camera>
-    </a-entity>
+        <a-cylinder id="sugar" position="-1.2 1.55 -5.8" radius=".18" height=".5" color="#FFFFFF">
+        </a-cylinder>
 
-</a-scene>
+        <a-text value="Sugar" position="-1.2 2.05 -5.3" align="center" color="#111" scale=".7 .7 .7">
+        </a-text>
+
+
+        <a-box id="milk" position="0 1.6 -5.8" width=".32" height=".65" depth=".32" color="#64B5F6">
+        </a-box>
+
+        <a-text value="Milk" position="0 2.05 -5.3" align="center" color="#111" scale=".7 .7 .7">
+        </a-text>
+
+
+        <a-cylinder position="1.2 1.55 -5.8" radius=".16" height=".55" color="#FFC107">
+        </a-cylinder>
+
+        <a-text value="Oil" position="1.2 2.05 -5.3" align="center" color="#111" scale=".7 .7 .7">
+        </a-text>
+
+
+        <a-box position="2.4 1.55 -5.8" width=".3" height=".45" depth=".3" color="#4CAF50">
+        </a-box>
+
+        <a-text value="Tea" position="2.4 2.05 -5.3" align="center" color="#111" scale=".7 .7 .7">
+        </a-text>
+
+        <!-- Middle Shelf -->
+
+        <a-box position="-2.4 2.5 -5.8" width=".45" height=".25" depth=".35" color="#CD853F">
+        </a-box>
+
+        <a-text value="Biscuits" position="-2.4 2.9 -5.3" align="center" scale=".55 .55 .55">
+        </a-text>
+
+
+        <a-box position="-1.2 2.5 -5.8" width=".35" height=".5" depth=".35" color="#FF7043">
+        </a-box>
+
+        <a-text value="Salt" position="-1.2 2.9 -5.3" align="center" scale=".6 .6 .6">
+        </a-text>
+
+
+        <a-box position="0 2.5 -5.8" width=".35" height=".5" depth=".35" color="#BA68C8">
+        </a-box>
+
+        <a-text value="Soap" position="0 2.9 -5.3" align="center" scale=".6 .6 .6">
+        </a-text>
+
+
+        <a-box position="1.2 2.5 -5.8" width=".35" height=".5" depth=".35" color="#EF5350">
+        </a-box>
+
+        <a-text value="Medicine" position="1.2 2.9 -5.3" align="center" scale=".55 .55 .55">
+        </a-text>
+
+
+        <a-box position="2.4 2.5 -5.8" width=".35" height=".5" depth=".35" color="#4FC3F7">
+        </a-box>
+
+        <a-text value="Toothpaste" position="2.4 2.9 -5.3" align="center" scale=".45 .45 .45">
+        </a-text>
+
+        <!-- ========================= -->
+        <!-- INVENTORY BOARD -->
+        <!-- ========================= -->
+
+        <a-plane position="0 2 -2.5" width="5.2" height="2" color="#263238" material="opacity:.95">
+        </a-plane>
+
+        <a-text id="infopanel" value="Click any item to view its details.
+
+Rice        : 2 Kg
+
+Sugar      : 1 Kg
+
+Milk        : Low Stock
+
+Tea          : Available
+
+Oil           : 1 Bottle
+
+Expiry Alert : Milk" position="0 2 -2.49" align="center" width="5" color="#FFFFFF">
+        </a-text>
+
+        <!-- ========================= -->
+        <!-- DECORATION -->
+        <!-- ========================= -->
+
+        <a-box position="-6.5 2.8 -6.3" width=".5" height=".5" depth=".5" color="#795548">
+        </a-box>
+
+        <a-sphere position="-6.5 3.2 -6.3" radius=".28" color="#43A047">
+        </a-sphere>
+
+        <a-box position="6.3 3 -6.4" width=".12" height=".8" depth=".12" color="#555">
+        </a-box>
+
+        <a-sphere position="6.3 3.5 -6.4" radius=".22" color="#FFF8DC">
+        </a-sphere>
+
+        <!-- ========================= -->
+        <!-- CAMERA -->
+        <!-- ========================= -->
+
+        <a-entity position="0 1.6 5">
+
+            <a-camera wasd-controls="acceleration:25">
+
+                <a-cursor color="#FF0000">
+                </a-cursor>
+
+            </a-camera>
+
+        </a-entity>
+
+        <script>
+            const panel = document.querySelector("#infoPanel");
+
+            // ---------- Item Information ----------
+
+            document.querySelector("#rice").addEventListener("click", () => {
+                panel.setAttribute(
+                    "value",
+                    "🍚 RICE\n\nQuantity : 2 Kg\nExpiry : 15 Aug 2026\nLocation : Pantry Shelf 1"
+                );
+            });
+
+            document.querySelector("#sugar").addEventListener("click", () => {
+                panel.setAttribute(
+                    "value",
+                    "🧂 SUGAR\n\nQuantity : 1 Kg\nExpiry : 10 Sep 2026\nLocation : Pantry Shelf 1"
+                );
+            });
+
+            document.querySelector("#milk").addEventListener("click", () => {
+                panel.setAttribute(
+                    "value",
+                    "🥛 MILK\n\nQuantity : 3 Packs\nExpiry : Tomorrow\nStatus : LOW STOCK"
+                );
+            });
+
+            // ---------- Cupboard Doors ----------
+
+            let cupboardOpen = false;
+
+            document.querySelector("#leftDoor").addEventListener("click", () => {
+
+                cupboardOpen = !cupboardOpen;
+
+                document.querySelector("#leftHinge")
+                    .setAttribute("rotation",
+                        cupboardOpen ? "0 -110 0" : "0 0 0");
+
+                document.querySelector("#rightHinge")
+                    .setAttribute("rotation",
+                        cupboardOpen ? "0 110 0" : "0 0 0");
+            });
+
+            document.querySelector("#rightDoor").addEventListener("click", () => {
+
+                cupboardOpen = !cupboardOpen;
+
+                document.querySelector("#leftHinge")
+                    .setAttribute("rotation",
+                        cupboardOpen ? "0 -110 0" : "0 0 0");
+
+                document.querySelector("#rightHinge")
+                    .setAttribute("rotation",
+                        cupboardOpen ? "0 110 0" : "0 0 0");
+            });
+
+            // ---------- Fridge ----------
+
+            let fridgeOpen = false;
+
+            document.querySelector("#fridgeDoor").addEventListener("click", () => {
+
+                fridgeOpen = !fridgeOpen;
+
+                document.querySelector("#fridgeHinge")
+                    .setAttribute("rotation",
+                        fridgeOpen ? "0 -100 0" : "0 0 0");
+            });
+        </script>
+
+    </a-scene>
 
 </body>
+
 </html>
