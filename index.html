@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Home Inventory Management System</title>
+
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+    <!-- CSS -->
+    <style>
+        /* Reset */
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        /* Full Screen */
+
+        html,body{
+            width:100%;
+            height:100%;
+            overflow:hidden;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#000;
+        }
+
+        /* A-Frame Scene */
+
+        a-scene{
+            width:100%;
+            height:100%;
+        }
+    </style>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const infoText = document.querySelector('#infoText');
+            const items = document.querySelectorAll('.inventory');
+
+            items.forEach(item => {
+                // Hover effect (scale up slightly)
+                item.addEventListener('mouseenter', () => {
+                    item.setAttribute('scale', '1.1 1.1 1.1');
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.setAttribute('scale', '1 1 1');
+                });
+                // Click effect (update info panel text)
+                item.addEventListener('click', () => {
+                    const id = item.getAttribute('id');
+                    const name = id.charAt(0).toUpperCase() + id.slice(1);
+                    infoText.setAttribute('value', `Item Selected:\n${name}`);
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<a-scene>
+
+    <!-- Sky -->
+    <a-sky color="#CFEFFF"></a-sky>
+
+    <!-- Lighting -->
+    <a-light type="ambient" intensity="1"></a-light>
+    <a-light type="directional" position="2 4 3" intensity="0.8"></a-light>
+
+    <!-- Floor -->
+    <a-plane
+        position="0 0 0"
+        rotation="-90 0 0"
+        width="12"
+        height="12"
+        color="#CFCFCF">
+    </a-plane>
+
+    <!-- Back Wall -->
+    <a-box
+        position="0 2 -6"
+        width="12"
+        height="4"
+        depth="0.2"
+        color="#FFF8DC">
+    </a-box>
+
+    <!-- Left Wall -->
+    <a-box
+        position="-6 2 0"
+        width="0.2"
+        height="4"
+        depth="12"
+        color="#FFF8DC">
+    </a-box>
+
+    <!-- Right Wall -->
+    <a-box
+        position="6 2 0"
+        width="0.2"
+        height="4"
+        depth="12"
+        color="#FFF8DC">
+    </a-box>
+
+    <!-- Pantry Shelf -->
+    <a-box
+        position="0 1.4 -5.3"
+        width="5"
+        height="0.15"
+        depth="0.8"
+        color="#8B5A2B">
+    </a-box>
+
+    <!-- Left Support -->
+    <a-box
+        position="-2.3 0.7 -5.3"
+        width="0.15"
+        height="1.4"
+        depth="0.8"
+        color="#8B5A2B">
+    </a-box>
+
+    <!-- Right Support -->
+    <a-box
+        position="2.3 0.7 -5.3"
+        width="0.15"
+        height="1.4"
+        depth="0.8"
+        color="#8B5A2B">
+    </a-box>
+
+    <!-- Inventory Items -->
+
+    <!-- Rice -->
+    <a-box
+        id="rice"
+        class="inventory"
+        position="-1.8 1.9 -5.3"
+        width="0.4"
+        height="0.7"
+        depth="0.4"
+        color="#FFD54F">
+    </a-box>
+
+    <!-- Sugar -->
+    <a-cylinder
+        id="sugar"
+        class="inventory"
+        position="0 1.85 -5.3"
+        radius="0.2"
+        height="0.6"
+        color="white">
+    </a-cylinder>
+
+    <!-- Milk -->
+    <a-box
+        id="milk"
+        class="inventory"
+        position="1.8 1.9 -5.3"
+        width="0.35"
+        height="0.7"
+        depth="0.35"
+        color="#8ED6FF">
+    </a-box>
+
+    <!-- Oil -->
+
+<a-cylinder
+    id="oil"
+    class="inventory"
+    position="-1 2.9 -5.3"
+    radius="0.15"
+    height="0.6"
+    color="#FFD700">
+</a-cylinder>
+
+<!-- Tea -->
+
+<a-box
+    id="tea"
+    class="inventory"
+    position="1 2.9 -5.3"
+    width="0.35"
+    height="0.5"
+    depth="0.35"
+    color="#3CB371">
+</a-box>
+
+<!-- Biscuits -->
+
+<a-box
+    id="biscuits"
+    class="inventory"
+    position="2.2 2.9 -5.3"
+    width="0.4"
+    height="0.25"
+    depth="0.4"
+    color="#CD853F">
+</a-box>
+
+    <!-- Second Shelf -->
+
+<a-box
+    position="0 2.4 -5.3"
+    width="5"
+    height="0.15"
+    depth="0.8"
+    color="#8B5A2B">
+</a-box>
+
+<!-- Refrigerator -->
+
+<a-box
+    position="4 1.5 -5"
+    width="1.5"
+    height="3"
+    depth="1.2"
+    color="#E8E8E8">
+</a-box>
+
+<a-text
+    value="Refrigerator"
+    position="4 3.2 -4.3"
+    align="center"
+    color="black">
+</a-text>
+
+<!-- Pantry Cupboard -->
+
+<a-box
+    position="-4 1.8 -5"
+    width="2"
+    height="3.5"
+    depth="1"
+    color="#A0522D">
+</a-box>
+
+<a-text
+    value="Pantry"
+    position="-4 3.7 -4.3"
+    align="center"
+    color="white">
+</a-text>
+
+    <!-- Information Panel -->
+    <a-plane
+        id="infoPanel"
+        position="0 2.3 -2.5"
+        width="3.8"
+        height="1.6"
+        color="#222">
+
+        <a-text
+            id="infoText"
+            value="Welcome!\nSelect an item."
+            color="white"
+            align="center"
+            width="4"
+            position="0 0 0.01">
+        </a-text>
+
+    </a-plane>
+
+    <!-- Camera -->
+    <a-entity position="0 1.6 4">
+        <a-camera>
+            <a-cursor color="red"></a-cursor>
+        </a-camera>
+    </a-entity>
+
+</a-scene>
+
+</body>
+</html>
